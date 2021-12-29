@@ -2,11 +2,10 @@ package com.example.springchallenge.repository;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import com.example.springchallenge.entity.Produto;
 import com.example.springchallenge.helper.DatabaseHelper;
-import com.example.springchallenge.helper.JoinListHelper;
 import com.example.springchallenge.repository.interfaces.BaseRepository;
 
 import org.springframework.stereotype.Component;
@@ -34,152 +33,107 @@ public class ProdutoRepository implements BaseRepository<Produto, Long> {
     }
 
     public List<Produto> getProductsByNameAndCategory(String name, String category) {
-        Stream<Produto> pFiltradosName = this.produtos.stream()
-                .filter(produto -> produto.getName().equalsIgnoreCase(name));
-
-        Stream<Produto> pFiltradosCategoria = this.produtos.stream()
-                .filter(produto -> produto.getCategory().equalsIgnoreCase(category));
-
-        return JoinListHelper.join(pFiltradosName, pFiltradosCategoria);
+        return this.produtos.stream()
+                .filter(produto -> produto.getName().equalsIgnoreCase(name))
+                .filter(produto -> produto.getCategory().equalsIgnoreCase(category))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByNameAndBrand(String name, String brand) {
-        Stream<Produto> pFiltradosName = this.produtos.stream()
-                .filter(produto -> produto.getName().equalsIgnoreCase(name));
-
-        Stream<Produto> pFiltradosBrand = this.produtos.stream()
-                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand));
-
-        return JoinListHelper.join(pFiltradosName, pFiltradosBrand);
+        return this.produtos.stream()
+                .filter(produto -> produto.getName().equalsIgnoreCase(name))
+                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByNameAndPrice(String name, BigDecimal price) {
-        Stream<Produto> pFiltradosName = this.produtos.stream()
-                .filter(produto -> produto.getName().equalsIgnoreCase(name));
-
-        Stream<Produto> pFiltradosPrice = this.produtos.stream()
-                .filter(produto -> produto.getPrice().equals(price));
-
-        return JoinListHelper.join(pFiltradosName, pFiltradosPrice);
+        return this.produtos.stream()
+                .filter(produto -> produto.getName().equalsIgnoreCase(name))
+                .filter(produto -> produto.getPrice().equals(price))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByNameAndFreeShipping(String name, Boolean freeShipping) {
-        Stream<Produto> pFiltradosName = this.produtos.stream()
-                .filter(produto -> produto.getName().equalsIgnoreCase(name));
-
-        Stream<Produto> pFiltradosFreeShipping = this.produtos.stream()
-                .filter(produto -> produto.getFreeShipping().equals(freeShipping));
-
-        return JoinListHelper.join(pFiltradosName, pFiltradosFreeShipping);
+        return this.produtos.stream()
+                .filter(produto -> produto.getName().equalsIgnoreCase(name))
+                .filter(produto -> produto.getFreeShipping().equals(freeShipping))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByNameAndPrestige(String name, String prestige) {
-        Stream<Produto> pFiltradosName = this.produtos.stream()
-                .filter(produto -> produto.getName().equalsIgnoreCase(name));
-
-        Stream<Produto> pFiltradosPrestige = this.produtos.stream()
-                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige));
-
-        return JoinListHelper.join(pFiltradosName, pFiltradosPrestige);
+        return this.produtos.stream()
+                .filter(produto -> produto.getName().equalsIgnoreCase(name))
+                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByCategoryAndBrand(String category, String brand) {
-        Stream<Produto> pFiltradosCategory = this.produtos.stream()
-                .filter(produto -> produto.getCategory().equalsIgnoreCase(category));
-
-        Stream<Produto> pFiltradosBrand = this.produtos.stream()
-                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand));
-
-        return JoinListHelper.join(pFiltradosCategory, pFiltradosBrand);
+        return this.produtos.stream()
+                .filter(produto -> produto.getCategory().equalsIgnoreCase(category))
+                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByCategoryAndPrice(String category, BigDecimal price) {
-        Stream<Produto> pFiltradosCategory = this.produtos.stream()
-                .filter(produto -> produto.getCategory().equalsIgnoreCase(category));
-
-        Stream<Produto> pFiltradosPrice = this.produtos.stream()
-                .filter(produto -> produto.getPrice().equals(price));
-
-        return JoinListHelper.join(pFiltradosCategory, pFiltradosPrice);
+        return this.produtos.stream()
+                .filter(produto -> produto.getCategory().equalsIgnoreCase(category))
+                .filter(produto -> produto.getPrice().equals(price))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByCategoryAndFreeShipping(String category, Boolean freeShipping) {
-        Stream<Produto> pFiltradosCategory = this.produtos.stream()
-                .filter(produto -> produto.getCategory().equalsIgnoreCase(category));
-
-        Stream<Produto> pFiltradosFreeShipping = this.produtos.stream()
-                .filter(produto -> produto.getFreeShipping().equals(freeShipping));
-
-        return JoinListHelper.join(pFiltradosCategory, pFiltradosFreeShipping);
+        return this.produtos.stream()
+                .filter(produto -> produto.getCategory().equalsIgnoreCase(category))
+                .filter(produto -> produto.getFreeShipping().equals(freeShipping))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByCategoryAndPrestige(String category, String prestige) {
-        Stream<Produto> pFiltradosCategory = this.produtos.stream()
-                .filter(produto -> produto.getCategory().equalsIgnoreCase(category));
-
-        Stream<Produto> pFiltradosPrestige = this.produtos.stream()
-                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige));
-
-        return JoinListHelper.join(pFiltradosCategory, pFiltradosPrestige);
+        return this.produtos.stream()
+                .filter(produto -> produto.getCategory().equalsIgnoreCase(category))
+                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByBrandAndPrice(String brand, BigDecimal price) {
-        Stream<Produto> pFiltradosBrand = this.produtos.stream()
-                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand));
-
-        Stream<Produto> pFiltradosPrice = this.produtos.stream()
-                .filter(produto -> produto.getPrice().equals(price));
-
-        return JoinListHelper.join(pFiltradosBrand, pFiltradosPrice);
+        return this.produtos.stream()
+                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand))
+                .filter(produto -> produto.getPrice().equals(price))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByBrandAndFreeShipping(String brand, Boolean freeShipping) {
-        Stream<Produto> pFiltradosBrand = this.produtos.stream()
-                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand));
-
-        Stream<Produto> pFiltradosFreeShipping = this.produtos.stream()
-                .filter(produto -> produto.getFreeShipping().equals(freeShipping));
-
-        return JoinListHelper.join(pFiltradosBrand, pFiltradosFreeShipping);
+        return this.produtos.stream()
+                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand))
+                .filter(produto -> produto.getFreeShipping().equals(freeShipping))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByBrandAndPrestige(String brand, String prestige) {
-        Stream<Produto> pFiltradosBrand = this.produtos.stream()
-                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand));
-
-        Stream<Produto> pFiltradosPrestige = this.produtos.stream()
-                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige));
-
-        return JoinListHelper.join(pFiltradosBrand, pFiltradosPrestige);
+        return this.produtos.stream()
+                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand))
+                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByPriceAndFreeShipping(BigDecimal price, Boolean freeShipping) {
-        Stream<Produto> pFiltradosPrice = this.produtos.stream()
-                .filter(produto -> produto.getPrice().equals(price));
-
-        Stream<Produto> pFiltradosFreeShipping = this.produtos.stream()
-                .filter(produto -> produto.getFreeShipping().equals(freeShipping));
-
-        return JoinListHelper.join(pFiltradosPrice, pFiltradosFreeShipping);
+        return this.produtos.stream()
+                .filter(produto -> produto.getPrice().equals(price))
+                .filter(produto -> produto.getFreeShipping().equals(freeShipping))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByPriceAndPrestige(BigDecimal price, String prestige) {
-        Stream<Produto> pFiltradosPrice = this.produtos.stream()
-                .filter(produto -> produto.getPrice().equals(price));
-
-        Stream<Produto> pFiltradosPrestige = this.produtos.stream()
-                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige));
-
-        return JoinListHelper.join(pFiltradosPrice, pFiltradosPrestige);
+        return this.produtos.stream()
+                .filter(produto -> produto.getPrice().equals(price))
+                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> getProductsByFreeShippingAndPrestige(Boolean freeShipping, String prestige) {
-        Stream<Produto> pFiltradosFreeShipping = this.produtos.stream()
-                .filter(produto -> produto.getFreeShipping().equals(freeShipping));
-
-        Stream<Produto> pFiltradosPrestige = this.produtos.stream()
-                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige));
-
-        return JoinListHelper.join(pFiltradosFreeShipping, pFiltradosPrestige);
+        return this.produtos.stream()
+                .filter(produto -> produto.getFreeShipping().equals(freeShipping))
+                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige))
+                .collect(Collectors.toList());
     }
 }
