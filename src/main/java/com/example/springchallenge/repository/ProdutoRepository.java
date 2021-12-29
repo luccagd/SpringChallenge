@@ -182,5 +182,4 @@ public class ProdutoRepository implements BaseRepository<Produto, Long> {
 
         return JoinListHelper.join(pFiltradosFreeShipping, pFiltradosPrestige);
     }
-
 }
