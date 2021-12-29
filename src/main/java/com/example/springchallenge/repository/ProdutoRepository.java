@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public class ProdutoRepository implements BaseRepository<Produto, Long> {
     private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-    private final String PATH = "usuarios.json";
+    private final String PATH = "database.json";
     private List<Produto> produtos = new ArrayList<>(loadAllFromFile());
 
     @Override
