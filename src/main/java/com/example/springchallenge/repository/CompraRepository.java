@@ -34,7 +34,6 @@ public class CompraRepository {
 
     public List<Produto> updateProduct(Compra compra){
         List<Produto> novosProdutos = new ArrayList<>();
-
         compra.getArticles().forEach( produto -> {
             Produto novoProduto = produtoRepository.getById(produto.getProductId());
             novoProduto.setQuantity(produto.getQuantity());
