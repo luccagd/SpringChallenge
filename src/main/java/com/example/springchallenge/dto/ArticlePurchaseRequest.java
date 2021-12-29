@@ -21,7 +21,7 @@ public class ArticlePurchaseRequest {
     private Long id;
     private List<Produto> articles = new ArrayList<>();
 
-    public static Compra toEntity(ArticlePurchaseRequest request){
+    public static Compra toEntity(ArticlePurchaseRequest request) {
         Compra compra = Compra.builder()
                 .id(request.getId())
                 .articles(request.getArticles())
@@ -29,7 +29,7 @@ public class ArticlePurchaseRequest {
         return compra;
     }
 
-    public static ArticlePurchaseRequest toRequest(Compra compra){
+    public static ArticlePurchaseRequest toRequest(Compra compra) {
         ArticlePurchaseRequest request = ArticlePurchaseRequest.builder()
                 .id(compra.getId())
                 .articles(compra.getArticles())
@@ -37,7 +37,7 @@ public class ArticlePurchaseRequest {
         return request;
     }
 
-    public static ArticlePurchaseRequest toRequest(ArticlePurchaseResponse response){
+    public static ArticlePurchaseRequest toRequest(ArticlePurchaseResponse response) {
         ArticlePurchaseRequest request = ArticlePurchaseRequest.builder()
                 .id(response.getId())
                 .articles(response.getTicket().getArticles())
@@ -45,7 +45,7 @@ public class ArticlePurchaseRequest {
         return request;
     }
 
-    public static List<ArticlePurchaseRequest> listToRequest(List<Compra> compras){
+    public static List<ArticlePurchaseRequest> listToRequest(List<Compra> compras) {
         return compras.stream().map(ArticlePurchaseRequest::toRequest).collect(Collectors.toList());
     }
 }

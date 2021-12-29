@@ -1,7 +1,5 @@
 package com.example.springchallenge.service;
 
-import com.example.springchallenge.dto.ArticlePurchaseRequest;
-import com.example.springchallenge.dto.ArticlePurchaseResponse;
 import com.example.springchallenge.entity.Compra;
 import com.example.springchallenge.repository.CompraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ public class CompraService {
 
     @Autowired
     private CompraRepository compraRepository;
-
 
     public void save(Compra compra) {
         compraRepository.save(compra);

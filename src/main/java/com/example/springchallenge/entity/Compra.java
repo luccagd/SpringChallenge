@@ -16,7 +16,7 @@ public class Compra {
     private Long id;
     private List<Produto> articles = new ArrayList<>();
 
-    public void addArticles(Produto produto){
+    public void addArticles(Produto produto) {
         articles.add(produto);
     }
 }

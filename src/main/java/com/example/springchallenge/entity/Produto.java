@@ -12,24 +12,23 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class Produto {
-	private Long productId;
+    private Long productId;
 
-	private String name;
+    private String name;
 
-	private String category;
+    private String category;
 
-	private String brand;
+    private String brand;
 
-	private BigDecimal price;
+    private BigDecimal price;
 
-	private Integer quantity;
+    private Integer quantity;
 
-	private Boolean freeShipping;
+    private Boolean freeShipping;
 
-	private String prestige;
+    private String prestige;
 
-	public int compareByPrice(Produto a) {
-
-		return this.getPrice().compareTo(a.getPrice());
-	}
+    public int compareByPrice(Produto produto) {
+        return this.getPrice().compareTo(produto.getPrice());
+    }
 }

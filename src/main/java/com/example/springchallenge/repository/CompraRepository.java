@@ -25,6 +25,6 @@ public class CompraRepository implements BaseRepository<Compra, Long> {
 
     @Override
     public Compra getById(Long id) {
-        return compras.stream().filter( x -> x.getId().equals(id)).findFirst().orElse(null);
+        return compras.stream().filter(x -> x.getId().equals(id)).findFirst().orElse(null);
     }
 }
