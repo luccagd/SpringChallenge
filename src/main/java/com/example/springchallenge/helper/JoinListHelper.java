@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class JoinListHelper {
-    public static <T> List<T> joinList(Stream<T> a, Stream<T> b) {
+    public static <T> List<T> join(Stream<T> a, Stream<T> b) {
         return Stream.concat(a, b).collect(Collectors.toList());
     }
 }

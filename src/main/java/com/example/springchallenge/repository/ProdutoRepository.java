@@ -42,7 +42,7 @@ public class ProdutoRepository implements BaseRepository<Produto, Long> {
         Stream<Produto> pFiltradosCategoria = this.produtos.stream()
                 .filter(produto -> produto.getCategory().equalsIgnoreCase(category));
 
-        return JoinListHelper.joinList(pFiltradosName, pFiltradosCategoria);
+        return JoinListHelper.join(pFiltradosName, pFiltradosCategoria);
     }
 
     public List<Produto> getProductsByNameAndBrand(String name, String brand) {
@@ -52,7 +52,7 @@ public class ProdutoRepository implements BaseRepository<Produto, Long> {
         Stream<Produto> pFiltradosBrand = this.produtos.stream()
                 .filter(produto -> produto.getBrand().equalsIgnoreCase(brand));
 
-        return JoinListHelper.joinList(pFiltradosName, pFiltradosBrand);
+        return JoinListHelper.join(pFiltradosName, pFiltradosBrand);
     }
 
     public List<Produto> getProductsByNameAndPrice(String name, BigDecimal price) {
@@ -62,6 +62,16 @@ public class ProdutoRepository implements BaseRepository<Produto, Long> {
         Stream<Produto> pFiltradosPrice = this.produtos.stream()
                 .filter(produto -> produto.getPrice().equals(price));
 
-        return JoinListHelper.joinList(pFiltradosName, pFiltradosPrice);
+        return JoinListHelper.join(pFiltradosName, pFiltradosPrice);
+    }
+
+    public List<Produto> getProductsByNameAndFreeShipping(String name, Boolean freeShipping) {
+        Stream<Produto> pFiltradosName = this.produtos.stream()
+                .filter(produto -> produto.getName().equalsIgnoreCase(name));
+
+        Stream<Produto> pFiltradosFreeShipping = this.produtos.stream()
+                .filter(produto -> produto.getFreeShipping().equals(freeShipping));
+
+        return JoinListHelper.join(pFiltradosName, pFiltradosFreeShipping);
     }
 }

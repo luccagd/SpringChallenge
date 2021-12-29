@@ -26,4 +26,8 @@ public class ProdutoService {
     public List<Produto> getProductsByNameAndPrice(String name, BigDecimal price) {
         return repository.getProductsByNameAndPrice(name, price);
     }
+
+    public List<Produto> getProductsByNameAndFreeShipping(String name, Boolean freeShipping) {
+        return repository.getProductsByNameAndFreeShipping(name, freeShipping);
+    }
 }
