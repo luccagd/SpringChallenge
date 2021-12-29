@@ -16,7 +16,7 @@ public class InsertArticlesController {
     @Autowired
     private InsertArticlesService service;
 
-    @GetMapping("/insert-articles-request")
+    @GetMapping("/list-articles-request")
     public ResponseEntity<List<ProdutoInsertDTO>> getAll() {
         List<Produto> produtos = service.getAll();
 
