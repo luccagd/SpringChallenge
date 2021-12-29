@@ -46,4 +46,8 @@ public class ProdutoService {
     public List<Produto> getProductsByCategoryAndFreeShipping(String category, Boolean freeShipping) {
         return repository.getProductsByCategoryAndFreeShipping(category, freeShipping);
     }
+
+    public List<Produto> getProductsByCategoryAndPrestige(String category, String prestige) {
+        return repository.getProductsByCategoryAndPrestige(category, prestige);
+    }
 }
