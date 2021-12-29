@@ -13,5 +13,4 @@ public class ProdutoController {
     public String ping() {
         return "pong";
     }
-
 }
