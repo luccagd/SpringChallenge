@@ -122,4 +122,14 @@ public class ProdutoRepository implements BaseRepository<Produto, Long> {
 
         return JoinListHelper.join(pFiltradosCategory, pFiltradosPrestige);
     }
+
+    public List<Produto> getProductsByBrandAndPrice(String brand, BigDecimal price) {
+        Stream<Produto> pFiltradosBrand = this.produtos.stream()
+                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand));
+
+        Stream<Produto> pFiltradosPrice = this.produtos.stream()
+                .filter(produto -> produto.getPrice().equals(price));
+
+        return JoinListHelper.join(pFiltradosBrand, pFiltradosPrice);
+    }
 }

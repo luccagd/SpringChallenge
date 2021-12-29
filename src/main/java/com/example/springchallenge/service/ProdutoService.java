@@ -50,4 +50,8 @@ public class ProdutoService {
     public List<Produto> getProductsByCategoryAndPrestige(String category, String prestige) {
         return repository.getProductsByCategoryAndPrestige(category, prestige);
     }
+
+    public List<Produto> getProductsByBrandAndPrice(String brand, BigDecimal price) {
+        return repository.getProductsByBrandAndPrice(brand, price);
+    }
 }
