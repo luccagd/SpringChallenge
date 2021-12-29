@@ -1,17 +1,19 @@
 package com.example.springchallenge.repository;
 
-import com.example.springchallenge.entity.Produto;
-import com.example.springchallenge.repository.interfaces.BaseRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import org.springframework.stereotype.Repository;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.example.springchallenge.entity.Produto;
+import com.example.springchallenge.repository.interfaces.BaseRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 
 @Repository
 public class ProdutoRepository implements BaseRepository<Produto, Long> {
@@ -65,5 +67,11 @@ public class ProdutoRepository implements BaseRepository<Produto, Long> {
 
         return produtos;
     }
+    
+    public List<Produto> getProductsByCategoryAndFreeShippingAndOrder(String categoria, Boolean freeShipping, int order) throws IOException {
+		return new ArrayList<>(produtos);
+
+	}
+
 
 }
