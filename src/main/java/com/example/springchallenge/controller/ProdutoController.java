@@ -94,7 +94,6 @@ public class ProdutoController {
     public ResponseEntity<Object> getProductsByCategoryAndPrice(
             @RequestParam(value = "category") String category,
             @RequestParam(value = "price") BigDecimal price) {
-
         List<Produto> produtos = this.service.getProductsByCategoryAndPrice(category, price);
 
         return new ResponseEntity<>(produtos, HttpStatus.OK);
@@ -105,11 +104,9 @@ public class ProdutoController {
     public ResponseEntity<Object> getProductsByCategoryAndFreeShipping(
             @RequestParam(value = "category") String category,
             @RequestParam(value = "freeShipping") Boolean freeShipping) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("category", category);
-        params.put("freeShipping", freeShipping);
+        List<Produto> produtos = this.service.getProductsByCategoryAndFreeShipping(category, freeShipping);
 
-        return new ResponseEntity<>(params, HttpStatus.OK);
+        return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
     // List by Category + Prestige
