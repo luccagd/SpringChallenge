@@ -38,4 +38,8 @@ public class ProdutoService {
     public List<Produto> getProductsByCategoryAndBrand(String category, String brand) {
         return repository.getProductsByCategoryAndBrand(category, brand);
     }
+
+    public List<Produto> getProductsByCategoryAndPrice(String category, BigDecimal price) {
+        return repository.getProductsByCategoryAndPrice(category, price);
+    }
 }

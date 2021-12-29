@@ -1,9 +1,7 @@
 package com.example.springchallenge.repository;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.example.springchallenge.entity.Produto;
@@ -93,5 +91,15 @@ public class ProdutoRepository implements BaseRepository<Produto, Long> {
                 .filter(produto -> produto.getBrand().equalsIgnoreCase(brand));
 
         return JoinListHelper.join(pFiltradosCategory, pFiltradosBrand);
+    }
+
+    public List<Produto> getProductsByCategoryAndPrice(String category, BigDecimal price) {
+        Stream<Produto> pFiltradosCategory = this.produtos.stream()
+                .filter(produto -> produto.getCategory().equalsIgnoreCase(category));
+
+        Stream<Produto> pFiltradosPrice = this.produtos.stream()
+                .filter(produto -> produto.getPrice().equals(price));
+
+        return JoinListHelper.join(pFiltradosCategory, pFiltradosPrice);
     }
 }

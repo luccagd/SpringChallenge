@@ -79,26 +79,25 @@ public class ProdutoController {
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
-    // List by Category + Brand
+    // Finalized !
     @GetMapping(path = "/articles", params = { "category", "brand" })
     public ResponseEntity<Object> getProductsByCategoryAndBrand(
             @RequestParam(value = "category") String category,
             @RequestParam(value = "brand") String brand) {
         List<Produto> produtos = this.service.getProductsByCategoryAndBrand(category, brand);
-        
+
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
-    // List by Category + Price
+    // Finalized !
     @GetMapping(path = "/articles", params = { "category", "price" })
     public ResponseEntity<Object> getProductsByCategoryAndPrice(
             @RequestParam(value = "category") String category,
             @RequestParam(value = "price") BigDecimal price) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("category", category);
-        params.put("price", price);
 
-        return new ResponseEntity<>(params, HttpStatus.OK);
+        List<Produto> produtos = this.service.getProductsByCategoryAndPrice(category, price);
+
+        return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
     // List by Category + FreeShipping
