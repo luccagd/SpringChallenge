@@ -3,6 +3,7 @@ package com.example.springchallenge.controller;
 import java.io.IOException;
 import java.util.List;
 
+import com.example.springchallenge.usecases.insertArticles.dto.ProdutoInsertDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,16 +20,11 @@ public class ProdutoController {
 
 	@Autowired
 	private ProdutoService produtoService;
-
-	@GetMapping("/ping")
-	public String ping() {
-		return "pong";
+	
+	@GetMapping(value = "/articles",params = {"category"})
+	public ResponseEntity<List<ProdutoInsertDTO>> getByCategory(@RequestParam String category) {
+		return ResponseEntity.ok().body(ProdutoInsertDTO.entityListToDTO(produtoService.listaPorCategoria(category)));
 	}
 
-	@GetMapping("/articles")
-	public ResponseEntity<List<ProdutoDTO>> getProductsByHighestPrice(@RequestParam String category, Boolean freeShipping, Integer order) throws IOException {
-		return ResponseEntity.ok(ProdutoDTO.converte(
-				this.produtoService.getProductsByCategoryAndFreeShippingAndOrder(category, freeShipping, order)));
-	}
 
 }

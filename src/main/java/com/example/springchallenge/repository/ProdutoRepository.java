@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
@@ -72,6 +73,10 @@ public class ProdutoRepository implements BaseRepository<Produto, Long> {
 		return new ArrayList<>(produtos);
 
 	}
+    public List<Produto> getByCategory(String category)
+    {
+        return produtos.stream().filter(produto->produto.getCategory().equals(category)).collect(Collectors.toList());
+    }
 
 
 }

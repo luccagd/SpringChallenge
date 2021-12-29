@@ -34,4 +34,9 @@ public class ProdutoService {
 		return list;
 	}
 
+	public List<Produto> listaPorCategoria(String categoria)
+	{
+		return produtoRepository.getByCategory(categoria);
+	}
+
 }
