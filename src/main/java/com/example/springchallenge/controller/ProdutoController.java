@@ -129,16 +129,14 @@ public class ProdutoController {
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
-    // List by Brand + FreeShipping
+    // Finalized !
     @GetMapping(path = "/articles", params = { "brand", "freeShipping" })
     public ResponseEntity<Object> getProductsByBrandAndFreeShipping(
             @RequestParam(value = "brand") String brand,
             @RequestParam(value = "freeShipping") Boolean freeShipping) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("brand", brand);
-        params.put("freeShipping", freeShipping);
+        List<Produto> produtos = this.service.getProductsByBrandAndFreeShipping(brand, freeShipping);
 
-        return new ResponseEntity<>(params, HttpStatus.OK);
+        return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
     // List by Brand + Prestige
