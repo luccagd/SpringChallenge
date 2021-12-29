@@ -30,4 +30,8 @@ public class ProdutoService {
     public List<Produto> getProductsByNameAndFreeShipping(String name, Boolean freeShipping) {
         return repository.getProductsByNameAndFreeShipping(name, freeShipping);
     }
+
+    public List<Produto> getProductsByNameAndPrestige(String name, String prestige) {
+        return repository.getProductsByNameAndPrestige(name, prestige);
+    }
 }
