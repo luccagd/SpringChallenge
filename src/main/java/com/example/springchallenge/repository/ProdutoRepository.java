@@ -84,4 +84,14 @@ public class ProdutoRepository implements BaseRepository<Produto, Long> {
 
         return JoinListHelper.join(pFiltradosName, pFiltradosPrestige);
     }
+
+    public List<Produto> getProductsByCategoryAndBrand(String category, String brand) {
+        Stream<Produto> pFiltradosCategory = this.produtos.stream()
+                .filter(produto -> produto.getCategory().equalsIgnoreCase(category));
+
+        Stream<Produto> pFiltradosBrand = this.produtos.stream()
+                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand));
+
+        return JoinListHelper.join(pFiltradosCategory, pFiltradosBrand);
+    }
 }

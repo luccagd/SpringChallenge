@@ -34,4 +34,8 @@ public class ProdutoService {
     public List<Produto> getProductsByNameAndPrestige(String name, String prestige) {
         return repository.getProductsByNameAndPrestige(name, prestige);
     }
+
+    public List<Produto> getProductsByCategoryAndBrand(String category, String brand) {
+        return repository.getProductsByCategoryAndBrand(category, brand);
+    }
 }

@@ -84,11 +84,9 @@ public class ProdutoController {
     public ResponseEntity<Object> getProductsByCategoryAndBrand(
             @RequestParam(value = "category") String category,
             @RequestParam(value = "brand") String brand) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("category", category);
-        params.put("brand", brand);
-
-        return new ResponseEntity<>(params, HttpStatus.OK);
+        List<Produto> produtos = this.service.getProductsByCategoryAndBrand(category, brand);
+        
+        return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
     // List by Category + Price
