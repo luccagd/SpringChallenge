@@ -4,7 +4,7 @@
     "name": "Serra de Bancada",
     "category": "Ferramentas",
     "brand": "FORTGPRO",
-    "price": 1.800,
+    "price": 1800,
     "quantity": 5,
     "freeShipping": true,
     "prestige": "****"
@@ -64,7 +64,7 @@
     "name": "Redmi Note 9",
     "category": "Celulares",
     "brand": "Xiaomi",
-    "price": 2.800,
+    "price": 2800,
     "quantity": 15,
     "freeShipping": true,
     "prestige": "****"
@@ -74,7 +74,7 @@
     "name": "Smartwatch",
     "category": "Celulares",
     "brand": "Noga",
-    "price": 1.200,
+    "price": 1200,
     "quantity": 20,
     "freeShipping": false,
     "prestige": "**"

@@ -37,9 +37,10 @@ public class CompraController {
     }
 
     @PostMapping("/purchase-request")
-    public ResponseEntity<ArticlePurchaseRequest> cadastra(@RequestBody ArticlePurchaseRequest request, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<ArticlePurchaseResponse> cadastra(@RequestBody ArticlePurchaseRequest request, UriComponentsBuilder uriComponentsBuilder) {
         Compra compra = ArticlePurchaseRequest.toEntity(request);
         compraService.save(compra);
-        return ResponseEntity.created(null).body(request);
+        ArticlePurchaseResponse response = ArticlePurchaseResponse.toResponse(compra);
+        return ResponseEntity.created(null).body(response);
     }
 }
