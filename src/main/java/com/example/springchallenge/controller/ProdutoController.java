@@ -3,6 +3,7 @@ package com.example.springchallenge.controller;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.example.springchallenge.usecases.insertArticles.dto.ProdutoInsertDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import com.example.springchallenge.service.ProdutoService;
 @RestController
 @RequestMapping
 public class ProdutoController {
+
 
     @Autowired
     private ProdutoService service;
@@ -33,6 +35,10 @@ public class ProdutoController {
         List<Produto> produtos = this.service.getProductsByNameAndCategory(name, category);
 
         return new ResponseEntity<>(produtos, HttpStatus.OK);
+    }
+    @GetMapping(value = "/articles",params = {"category"})
+    public ResponseEntity<List<ProdutoInsertDTO>> getByCategory(@RequestParam String category) {
+        return ResponseEntity.ok().body(ProdutoInsertDTO.entityListToDTO(service.listaPorCategoria(category)));
     }
 
     @GetMapping(path = "/articles", params = { "name", "brand" })

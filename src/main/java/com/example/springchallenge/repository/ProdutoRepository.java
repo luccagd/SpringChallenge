@@ -93,11 +93,18 @@ public class ProdutoRepository implements BaseRepository<Produto, Long> {
                 .collect(Collectors.toList());
     }
 
+
     public List<Produto> getProductsByCategoryAndBrand(String category, String brand) {
         return this.produtos.stream()
                 .filter(produto -> produto.getCategory().equalsIgnoreCase(category))
                 .filter(produto -> produto.getBrand().equalsIgnoreCase(brand))
                 .collect(Collectors.toList());
+
+	}
+    public List<Produto> getByCategory(String category)
+    {
+        return produtos.stream().filter(produto->produto.getCategory().equals(category)).collect(Collectors.toList());
+
     }
 
     public List<Produto> getProductsByCategoryAndPrice(String category, BigDecimal price) {
