@@ -101,8 +101,9 @@ public class ProdutoController {
     @GetMapping(path = "/articles", params = { "category", "freeShipping" })
     public ResponseEntity<Object> getProductsByCategoryAndFreeShipping(
             @RequestParam(value = "category") String category,
-            @RequestParam(value = "freeShipping") Boolean freeShipping) {
-        List<Produto> produtos = this.service.getProductsByCategoryAndFreeShipping(category, freeShipping);
+            @RequestParam(value = "freeShipping") Boolean freeShipping,
+            @RequestParam(value = "order", required = false) Integer order) {
+        List<Produto> produtos = this.service.getProductsByCategoryAndFreeShipping(category, freeShipping, order);
 
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }

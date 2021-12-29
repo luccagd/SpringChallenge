@@ -1,6 +1,9 @@
 package com.example.springchallenge.service;
 
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.example.springchallenge.entity.Produto;
@@ -43,8 +46,19 @@ public class ProdutoService {
         return repository.getProductsByCategoryAndPrice(category, price);
     }
 
-    public List<Produto> getProductsByCategoryAndFreeShipping(String category, Boolean freeShipping) {
-        return repository.getProductsByCategoryAndFreeShipping(category, freeShipping);
+    public List<Produto> getProductsByCategoryAndFreeShipping(String category, Boolean freeShipping, Integer order) {
+        Comparator<Produto> compareByName = Comparator.comparing(Produto::getName);
+
+        List<Produto> produtos = this.repository.getProductsByCategoryAndFreeShipping(category, freeShipping);
+
+        if (order == 0)
+            produtos.sort(compareByName);
+
+        if (order == 1) {
+            produtos.sort(compareByName.reversed());
+        }
+
+        return produtos;
     }
 
     public List<Produto> getProductsByCategoryAndPrestige(String category, String prestige) {
@@ -62,7 +76,7 @@ public class ProdutoService {
     public List<Produto> getProductsByBrandAndPrestige(String brand, String prestige) {
         return repository.getProductsByBrandAndPrestige(brand, prestige);
     }
-    
+
     public List<Produto> getProductsByPriceAndFreeShipping(BigDecimal price, Boolean freeShipping) {
         return repository.getProductsByPriceAndFreeShipping(price, freeShipping);
     }
