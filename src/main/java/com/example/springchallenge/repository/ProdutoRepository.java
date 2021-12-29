@@ -172,4 +172,15 @@ public class ProdutoRepository implements BaseRepository<Produto, Long> {
 
         return JoinListHelper.join(pFiltradosPrice, pFiltradosPrestige);
     }
+
+    public List<Produto> getProductsByFreeShippingAndPrestige(Boolean freeShipping, String prestige) {
+        Stream<Produto> pFiltradosFreeShipping = this.produtos.stream()
+                .filter(produto -> produto.getFreeShipping().equals(freeShipping));
+
+        Stream<Produto> pFiltradosPrestige = this.produtos.stream()
+                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige));
+
+        return JoinListHelper.join(pFiltradosFreeShipping, pFiltradosPrestige);
+    }
+
 }
