@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @Data
 @Builder
 public class ArticlePurchaseRequest {
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
     private List<Produto> articles = new ArrayList<>();
 
@@ -31,17 +30,17 @@ public class ArticlePurchaseRequest {
 
     public static ArticlePurchaseRequest toRequest(Compra compra) {
         ArticlePurchaseRequest request = ArticlePurchaseRequest.builder()
-                .id(compra.getId())
-                .articles(compra.getArticles())
-                .build();
+                                                               .id(compra.getId())
+                                                               .articles(compra.getArticles())
+                                                               .build();
         return request;
     }
 
     public static ArticlePurchaseRequest toRequest(ArticlePurchaseResponse response) {
         ArticlePurchaseRequest request = ArticlePurchaseRequest.builder()
-                .id(response.getId())
-                .articles(response.getTicket().getArticles())
-                .build();
+                                                               .id(response.getId())
+                                                               .articles(response.getTicket().getArticles())
+                                                               .build();
         return request;
     }
 

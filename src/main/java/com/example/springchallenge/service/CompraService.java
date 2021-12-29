@@ -13,8 +13,9 @@ public class CompraService {
     @Autowired
     private CompraRepository compraRepository;
 
-    public void save(Compra compra) {
-        compraRepository.save(compra);
+    public Compra save(Compra compra) {
+        //Compra compra = ArticlePurchaseRequest.toEntity(articlePurchaseRequest);
+        return compraRepository.save(compra);
     }
 
     public List<Compra> getAll() {

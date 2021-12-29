@@ -1,6 +1,7 @@
 package com.example.springchallenge.dto;
 
 import com.example.springchallenge.entity.Compra;
+import com.example.springchallenge.entity.Produto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,9 +23,18 @@ public class ArticlePurchaseResponse {
     private ArticlePurchaseRequest ticket;
     private BigDecimal total;
 
-    public static BigDecimal sum(ArticlePurchaseRequest request) {
-        double soma = request.getArticles().stream().mapToDouble(produto -> produto.getPrice().doubleValue()).sum();
-        return new BigDecimal(soma);
+    public static BigDecimal sum(ArticlePurchaseRequest request){
+        Compra compra = toEntity(request);
+        return sum(compra);
+    }
+
+
+    public static BigDecimal sum(Compra compra){
+        double soma = 0;
+        for (Produto produto: compra.getArticles()) {
+            soma += (produto.getPrice().doubleValue() * produto.getQuantity().doubleValue());
+        }
+        return new BigDecimal(soma).setScale(2, RoundingMode.HALF_EVEN);
     }
 
     public static ArticlePurchaseResponse toResponse(ArticlePurchaseRequest articlePurchaseRequest) {
@@ -37,9 +48,10 @@ public class ArticlePurchaseResponse {
 
     public static ArticlePurchaseResponse toResponse(Compra compra) {
         ArticlePurchaseResponse response = ArticlePurchaseResponse.builder()
-                .id(compra.getId())
-                .ticket(ArticlePurchaseRequest.toRequest(compra))
-                .build();
+                                                                  .id(compra.getId())
+                                                                  .ticket(ArticlePurchaseRequest.toRequest(compra))
+                                                                  .total(sum(compra))
+                                                                  .build();
         return response;
     }
 
@@ -51,7 +63,15 @@ public class ArticlePurchaseResponse {
         return compra;
     }
 
-    public static List<ArticlePurchaseResponse> listRequestToResponse(List<ArticlePurchaseRequest> requests) {
+    public static Compra toEntity(ArticlePurchaseRequest articlePurchaseRequest){
+        Compra compra = Compra.builder()
+                .id(articlePurchaseRequest.getId())
+                .articles(articlePurchaseRequest.getArticles())
+                .build();
+        return compra;
+    }
+
+    public static List<ArticlePurchaseResponse> listRequestToResponse(List<ArticlePurchaseRequest> requests){
         return requests.stream().map(x -> toResponse(x)).collect(Collectors.toList());
     }
 
