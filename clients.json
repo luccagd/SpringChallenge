@@ -70,4 +70,10 @@
   "cpf" : "12345678999",
   "state" : "teste",
   "email" : "teste@gmail.com"
+}, {
+  "clientId" : 13,
+  "name" : "Pedro",
+  "cpf" : "68954685214",
+  "state" : "Bahia",
+  "email" : "pedro@gmail.com"
 } ]

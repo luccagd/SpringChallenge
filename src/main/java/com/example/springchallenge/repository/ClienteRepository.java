@@ -24,17 +24,6 @@ public class ClienteRepository {
     	return new ArrayList<>(clientes);
     }
     
-    public List<Cliente> insertAllClients(List<Cliente> clientes)
-    {
-    	for (Cliente c : clientes)
-    	{
-    		c.setClientId((long) this.clientes.size() + 1);
-    		this.clientes.add(c);
-    	}
-    	updateFile();
-    	return clientes;
-    }
-    
     private void updateFile()
     {
     	try {
@@ -50,6 +39,7 @@ public class ClienteRepository {
     	clientes.add(cliente);
     	updateFile();
     	return cliente;
+
     }
 
 	public List<Cliente> getClientByState(String state) {
