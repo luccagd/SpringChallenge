@@ -17,7 +17,6 @@ public class AppErrorResponse {
     private int code;
     private String status;
     private String message;
-    private String stackTrace;
     private Object data;
 
     public AppErrorResponse() {
@@ -32,14 +31,8 @@ public class AppErrorResponse {
         this.message = message;
     }
 
-    public AppErrorResponse(HttpStatus httpStatus, String message, String stackTrace) {
+    public AppErrorResponse(HttpStatus httpStatus, String message, Object data) {
         this(httpStatus, message);
-
-        this.stackTrace = stackTrace;
-    }
-
-    public AppErrorResponse(HttpStatus httpStatus, String message, String stackTrace, Object data) {
-        this(httpStatus, message, stackTrace);
 
         this.data = data;
     }

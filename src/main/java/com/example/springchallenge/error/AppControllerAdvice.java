@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class AppControllerAdvice {
-    private StringWriter stringWriter = new StringWriter();
-    private PrintWriter printWriter = new PrintWriter(stringWriter);
 
     @ExceptionHandler(AppErrorException.class)
     public ResponseEntity<AppErrorResponse> handleAppErrorExceptions(Exception ex) {
@@ -21,15 +19,10 @@ public class AppControllerAdvice {
 
         HttpStatus httpStatus = appErrorException.getStatus();
 
-        appErrorException.printStackTrace(printWriter);
-
-        String stackTrace = stringWriter.toString();
-
         return new ResponseEntity<>(
                 new AppErrorResponse(
                         httpStatus,
                         appErrorException.getMessage(),
-                        stackTrace,
                         appErrorException.getData()),
                 httpStatus);
     }
