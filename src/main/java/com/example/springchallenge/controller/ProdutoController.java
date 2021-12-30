@@ -19,7 +19,6 @@ import com.example.springchallenge.service.ProdutoService;
 @RequestMapping
 public class ProdutoController {
 
-
     @Autowired
     private ProdutoService service;
 
@@ -36,7 +35,8 @@ public class ProdutoController {
 
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
-    @GetMapping(value = "/articles",params = {"category"})
+
+    @GetMapping(value = "/articles", params = { "category" })
     public ResponseEntity<List<ProdutoInsertDTO>> getByCategory(@RequestParam String category) {
         return ResponseEntity.ok().body(ProdutoInsertDTO.entityListToDTO(service.getByCategory(category)));
     }
@@ -63,7 +63,6 @@ public class ProdutoController {
     public ResponseEntity<Object> getProductsByNameAndFreeShipping(
             @RequestParam(value = "name") String name,
             @RequestParam(value = "freeShipping") Boolean freeShipping) {
-
         List<Produto> produtos = this.service.getProductsByNameAndFreeShipping(name, freeShipping);
 
         return new ResponseEntity<>(produtos, HttpStatus.OK);
