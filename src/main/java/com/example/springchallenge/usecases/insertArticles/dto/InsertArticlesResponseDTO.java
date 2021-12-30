@@ -1,6 +1,6 @@
 package com.example.springchallenge.usecases.insertArticles.dto;
 
-import com.example.springchallenge.entity.Produto;
+import com.example.springchallenge.entity.Article;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,18 +20,18 @@ public class InsertArticlesResponseDTO {
 
     private Integer quantity;
 
-    private static InsertArticlesResponseDTO toResponseDTO(Produto produto) {
+    private static InsertArticlesResponseDTO toResponseDTO(Article article) {
         return InsertArticlesResponseDTO.builder()
-                .productId(produto.getProductId())
-                .name(produto.getName())
-                .quantity(produto.getQuantity())
+                .productId(article.getProductId())
+                .name(article.getName())
+                .quantity(article.getQuantity())
                 .build();
     }
 
-    public static List<InsertArticlesResponseDTO> entityListToDTO(List<Produto> produtos) {
+    public static List<InsertArticlesResponseDTO> entityListToDTO(List<Article> articles) {
         List<InsertArticlesResponseDTO> articlesResponseDTO = new ArrayList<>();
-        for (Produto produto : produtos) {
-            articlesResponseDTO.add(toResponseDTO(produto));
+        for (Article article : articles) {
+            articlesResponseDTO.add(toResponseDTO(article));
         }
 
         return articlesResponseDTO;

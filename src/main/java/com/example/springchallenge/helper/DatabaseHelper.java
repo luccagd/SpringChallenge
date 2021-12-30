@@ -1,26 +1,26 @@
 package com.example.springchallenge.helper;
 
+import com.example.springchallenge.entity.Article;
+import com.example.springchallenge.entity.Client;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.List;
 
-import com.example.springchallenge.entity.Cliente;
-import com.example.springchallenge.entity.Produto;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
 public abstract class DatabaseHelper {
-	private static ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-	private static final String PATH = "database.json";
-	private static final String PATHCLI = "clients.json";
+	private static final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+	private static final String PATH_ARTICLE = "database.json";
+	private static final String PATH_CLIENT = "clients.json";
 
-	public static List<Produto> getDatabase() {
+	public static List<Article> getDatabaseArticle() {
 		try {
-			File file = new File(PATH);
+			File file = new File(PATH_ARTICLE);
 			FileInputStream is = new FileInputStream(file);
 
-			return Arrays.asList(objectMapper.readValue(is, Produto[].class));
+			return Arrays.asList(objectMapper.readValue(is, Article[].class));
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 
@@ -28,13 +28,12 @@ public abstract class DatabaseHelper {
 		}
 	}
 
-//verificar depois
-	public static List<Cliente> getDatabaseClientes() {
+	public static List<Client> getDatabaseClient() {
 		try {
-			File file = new File(PATHCLI);
+			File file = new File(PATH_CLIENT);
 			FileInputStream is = new FileInputStream(file);
 
-			return Arrays.asList(objectMapper.readValue(is, Cliente[].class));
+			return Arrays.asList(objectMapper.readValue(is, Client[].class));
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 
@@ -47,10 +46,10 @@ public abstract class DatabaseHelper {
 	}
 
 	public static String getDatabasePath() {
-		return PATH;
+		return PATH_ARTICLE;
 	}
 
-	public static String getDatabasePathClientes() {
-		return PATHCLI;
+	public static String getDatabasePathClients() {
+		return PATH_CLIENT;
 	}
 }

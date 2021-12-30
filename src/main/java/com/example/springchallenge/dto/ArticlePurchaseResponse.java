@@ -1,7 +1,7 @@
 package com.example.springchallenge.dto;
 
-import com.example.springchallenge.entity.Compra;
-import com.example.springchallenge.entity.Produto;
+import com.example.springchallenge.entity.Purchase;
+import com.example.springchallenge.entity.Article;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,67 +25,47 @@ public class ArticlePurchaseResponse {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long idCart;
 
-    public static BigDecimal sum(ArticlePurchaseRequest request){
-        Compra compra = toEntity(request);
-        return sum(compra);
-    }
-
-
-    public static BigDecimal sum(Compra compra){
-        double soma = 0;
-        for (Produto produto: compra.getArticles()) {
-            soma += (produto.getPrice().doubleValue() * produto.getQuantity().doubleValue());
+    public static BigDecimal sum(Purchase purchase){
+        double sum = 0;
+        for (Article article : purchase.getArticles()) {
+            sum += (article.getPrice().doubleValue() * article.getQuantity().doubleValue());
         }
-        return new BigDecimal(soma).setScale(2, RoundingMode.HALF_EVEN);
+        return new BigDecimal(sum).setScale(2, RoundingMode.HALF_EVEN);
     }
 
-    public static ArticlePurchaseResponse toResponse(ArticlePurchaseRequest articlePurchaseRequest) {
+    public static ArticlePurchaseResponse toResponse(Purchase purchase) {
         ArticlePurchaseResponse response = ArticlePurchaseResponse.builder()
-                                                                  .id(articlePurchaseRequest.getId())
-                                                                  .idCart(articlePurchaseRequest.getIdCart())
-                                                                  .ticket(articlePurchaseRequest)
-                                                                  .total(sum(articlePurchaseRequest))
+                                                                  .id(purchase.getId())
+                                                                  .idCart(purchase.getIdCart())
+                                                                  .ticket(ArticlePurchaseRequest.toRequest(purchase))
+                                                                  .total(sum(purchase))
                                                                   .build();
         return response;
     }
 
-    public static ArticlePurchaseResponse toResponse(Compra compra) {
-        ArticlePurchaseResponse response = ArticlePurchaseResponse.builder()
-                                                                  .id(compra.getId())
-                                                                  .idCart(compra.getIdCart())
-                                                                  .ticket(ArticlePurchaseRequest.toRequest(compra))
-                                                                  .total(sum(compra))
-                                                                  .build();
-        return response;
-    }
-
-    public static Compra toEntity(ArticlePurchaseResponse articlePurchaseResponse) {
-        Compra compra = Compra.builder()
+    public static Purchase toEntity(ArticlePurchaseResponse articlePurchaseResponse) {
+        Purchase purchase = Purchase.builder()
                               .id(articlePurchaseResponse.ticket.getId())
                               .idCart(articlePurchaseResponse.ticket.getIdCart())
                               .articles(articlePurchaseResponse.ticket.getArticles())
                               .build();
-        return compra;
+        return purchase;
     }
 
-    public static Compra toEntity(ArticlePurchaseRequest articlePurchaseRequest){
-        Compra compra = Compra.builder()
+    public static Purchase toEntity(ArticlePurchaseRequest articlePurchaseRequest){
+        Purchase purchase = Purchase.builder()
                               .id(articlePurchaseRequest.getId())
                               .idCart(articlePurchaseRequest.getIdCart())
                               .articles(articlePurchaseRequest.getArticles())
                               .build();
-        return compra;
+        return purchase;
     }
 
-    public static List<ArticlePurchaseResponse> listRequestToResponse(List<ArticlePurchaseRequest> requests){
-        return requests.stream().map(x -> toResponse(x)).collect(Collectors.toList());
+    public static List<ArticlePurchaseResponse> listEntityToResponse(List<Purchase> purchases) {
+        return purchases.stream().map(ArticlePurchaseResponse::toResponse).collect(Collectors.toList());
     }
 
-    public static List<ArticlePurchaseResponse> listEntityToResponse(List<Compra> compras) {
-        return compras.stream().map(ArticlePurchaseResponse::toResponse).collect(Collectors.toList());
-    }
-
-    public static List<Compra> listResponseToEntity(List<ArticlePurchaseResponse> response) {
+    public static List<Purchase> listResponseToEntity(List<ArticlePurchaseResponse> response) {
         return response.stream().map(ArticlePurchaseResponse::toEntity).collect(Collectors.toList());
     }
 }

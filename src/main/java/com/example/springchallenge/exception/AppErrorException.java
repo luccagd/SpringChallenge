@@ -11,10 +11,6 @@ public class AppErrorException extends RuntimeException {
     private HttpStatus status = null;
     private Object data = null;
 
-    public AppErrorException() {
-        super();
-    }
-
     public AppErrorException(String message) {
         super(message);
     }

@@ -6,7 +6,9 @@ import com.example.springchallenge.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,9 +29,11 @@ public class CartController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<CartDTO> save(@RequestBody Cart cart){
+    public ResponseEntity<CartDTO> save(@RequestBody Cart cart, UriComponentsBuilder uriComponentsBuilder){
         cartService.save(cart);
-        return ResponseEntity.created(null).body(CartDTO.toDTO(cart));
+
+        URI uri = uriComponentsBuilder.path("/cart/{id}").buildAndExpand(cart.getIdCart()).toUri();
+        return ResponseEntity.created(uri).body(CartDTO.toDTO(cart));
     }
 
     @GetMapping("/ping")

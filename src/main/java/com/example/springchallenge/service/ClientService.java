@@ -6,23 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.example.springchallenge.entity.Cliente;
+import com.example.springchallenge.entity.Client;
 import com.example.springchallenge.exception.AppErrorException;
-import com.example.springchallenge.repository.ClienteRepository;
+import com.example.springchallenge.repository.ClientRepository;
 
 @Service
-public class ClienteService {
+public class ClientService {
 
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private ClientRepository clientRepository;
 
-	public List<Cliente> getAll() {
-		return clienteRepository.getAllClientes();
+	public List<Client> getAll() {
+		return clientRepository.getAllClients();
 	}
 
-	public List<Cliente> getClientByState(String state) {
+	public List<Client> getClientByState(String state) {
 		try {
-			return clienteRepository.getClientByState(state);
+			return clientRepository.getClientByState(state);
 		} catch (Exception e) {
 			throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
 					"Não foi possível listar os clientes por estado!", e.getMessage());
@@ -30,9 +30,9 @@ public class ClienteService {
 
 	}
 
-	public Cliente save(Cliente cliente) {
+	public Client save(Client client) {
 		try {
-			return clienteRepository.insertCliente(cliente);
+			return clientRepository.insertClient(client);
 
 		} catch (Exception e) {
 			throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "Não foi possível cadastrar o cliente!",

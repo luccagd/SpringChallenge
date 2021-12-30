@@ -1,9 +1,9 @@
 package com.example.springchallenge.service;
 
 import com.example.springchallenge.dto.ArticlePurchaseRequest;
-import com.example.springchallenge.entity.Compra;
+import com.example.springchallenge.entity.Purchase;
 import com.example.springchallenge.exception.AppErrorException;
-import com.example.springchallenge.repository.CompraRepository;
+import com.example.springchallenge.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CompraService {
+public class PurchaseService {
 
     @Autowired
-    private CompraRepository repository;
+    private PurchaseRepository repository;
 
-    public Compra save(ArticlePurchaseRequest request) {
+    public Purchase save(ArticlePurchaseRequest request) {
         try {
-            Compra compra = ArticlePurchaseRequest.toEntity(request);
+            Purchase purchase = ArticlePurchaseRequest.toEntity(request);
 
-            return repository.save(compra);
+            return repository.save(purchase);
         } catch (Exception e) {
             throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "Erro ao cadastrar compra!",
@@ -28,7 +28,7 @@ public class CompraService {
         }
     }
 
-    public List<Compra> getAll() {
+    public List<Purchase> getAll() {
         try {
             return repository.getAll();
         } catch (Exception e) {
@@ -38,7 +38,7 @@ public class CompraService {
         }
     }
 
-    public Compra getById(Long id) {
+    public Purchase getById(Long id) {
         try {
             return repository.getById(id);
         } catch (Exception e) {

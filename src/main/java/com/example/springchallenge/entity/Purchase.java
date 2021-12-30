@@ -12,12 +12,12 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class Compra {
+public class Purchase {
     private Long id;
     private Long idCart;
-    private List<Produto> articles = new ArrayList<>();
+    private List<Article> articles = new ArrayList<>();
 
-    public void addArticles(Produto produto) {
-        articles.add(produto);
+    public void addArticles(Article article) {
+        articles.add(article);
     }
 }

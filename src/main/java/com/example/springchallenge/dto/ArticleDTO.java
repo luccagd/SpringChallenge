@@ -1,18 +1,17 @@
-package com.example.springchallenge.entity;
-
-import java.math.BigDecimal;
+package com.example.springchallenge.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class Produto {
-    private Long productId;
+public class ArticleDTO {
 
     private String name;
 
@@ -27,8 +26,4 @@ public class Produto {
     private Boolean freeShipping;
 
     private String prestige;
-
-    public int compareByPrice(Produto produto) {
-        return this.getPrice().compareTo(produto.getPrice());
-    }
 }

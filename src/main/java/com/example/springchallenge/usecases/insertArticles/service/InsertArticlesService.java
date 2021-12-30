@@ -1,6 +1,6 @@
 package com.example.springchallenge.usecases.insertArticles.service;
 
-import com.example.springchallenge.entity.Produto;
+import com.example.springchallenge.entity.Article;
 import com.example.springchallenge.exception.AppErrorException;
 import com.example.springchallenge.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +15,22 @@ public class InsertArticlesService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public List<Produto> getAll() {
+    public List<Article> getAll() {
         try {
             return produtoRepository.getAll();
         } catch (Exception e) {
             throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Não foi possível listar todos os Produtos!",
+                    "Não foi possível listar todos os produtos!",
                     e.getMessage());
         }
     }
 
-    public List<Produto> insertAllArticles(List<Produto> produtos) {
+    public List<Article> insertAllArticles(List<Article> articles) {
         try {
-            return produtoRepository.insertAllArticles(produtos);
+            return produtoRepository.insertAllArticles(articles);
         } catch (Exception e) {
             throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Erro ao inserir articles!",
+                    "Erro ao inserir produtos!",
                     e.getMessage());
         }
     }

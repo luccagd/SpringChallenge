@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.example.springchallenge.entity.Produto;
+import com.example.springchallenge.entity.Article;
 import com.example.springchallenge.exception.AppErrorException;
 import com.example.springchallenge.repository.ProdutoRepository;
 
@@ -19,7 +19,7 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository repository;
 
-    public List<Produto> getProductsByNameAndCategory(String name, String category) {
+    public List<Article> getProductsByNameAndCategory(String name, String category) {
         try {
             return repository.getByNameAndCategory(name, category);
         } catch (Exception e) {
@@ -29,7 +29,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByNameAndBrand(String name, String brand) {
+    public List<Article> getProductsByNameAndBrand(String name, String brand) {
         try {
             return repository.getByNameAndBrand(name, brand);
         } catch (Exception e) {
@@ -39,7 +39,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByNameAndPrice(String name, BigDecimal price) {
+    public List<Article> getProductsByNameAndPrice(String name, BigDecimal price) {
         try {
             return repository.getByNameAndPrice(name, price);
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByNameAndFreeShipping(String name, Boolean freeShipping) {
+    public List<Article> getProductsByNameAndFreeShipping(String name, Boolean freeShipping) {
         try {
             return repository.getByNameAndFreeShipping(name, freeShipping);
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByNameAndPrestige(String name, String prestige) {
+    public List<Article> getProductsByNameAndPrestige(String name, String prestige) {
         try {
             return repository.getByNameAndPrestige(name, prestige);
         } catch (Exception e) {
@@ -69,7 +69,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByCategoryAndBrand(String category, String brand) {
+    public List<Article> getProductsByCategoryAndBrand(String category, String brand) {
         try {
             return repository.getByCategoryAndBrand(category, brand);
         } catch (Exception e) {
@@ -79,7 +79,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByCategoryAndPrice(String category, BigDecimal price) {
+    public List<Article> getProductsByCategoryAndPrice(String category, BigDecimal price) {
         try {
             return repository.getByCategoryAndPrice(category, price);
         } catch (Exception e) {
@@ -89,29 +89,29 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByCategoryAndFreeShipping(String category, Boolean freeShipping, Integer order) {
+    public List<Article> getProductsByCategoryAndFreeShipping(String category, Boolean freeShipping, Integer order) {
         try {
-            Comparator<Produto> compareByName = Comparator.comparing(Produto::getName);
+            Comparator<Article> compareByName = Comparator.comparing(Article::getName);
 
-            List<Produto> produtos = repository.getByCategoryAndFreeShipping(category, freeShipping);
+            List<Article> articles = repository.getByCategoryAndFreeShipping(category, freeShipping);
 
             if (order == 0) {
-                produtos.sort(compareByName);
+                articles.sort(compareByName);
             }
 
             if (order == 1) {
-                produtos.sort(compareByName.reversed());
+                articles.sort(compareByName.reversed());
             }
 
             if (order == 2) {
-                Collections.sort(produtos, (Produto a, Produto b) -> b.compareByPrice(a));
+                Collections.sort(articles, (Article a, Article b) -> b.compareByPrice(a));
             }
 
             if (order == 3) {
-                Collections.sort(produtos, (Produto a, Produto b) -> a.compareByPrice(b));
+                Collections.sort(articles, (Article a, Article b) -> a.compareByPrice(b));
             }
 
-            return produtos;
+            return articles;
         } catch (Exception e) {
             throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "Não foi possível listar os produtos por category e freeShipping!",
@@ -119,7 +119,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByCategoryAndPrestige(String category, String prestige) {
+    public List<Article> getProductsByCategoryAndPrestige(String category, String prestige) {
         try {
             return repository.getByCategoryAndPrestige(category, prestige);
         } catch (Exception e) {
@@ -129,7 +129,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByBrandAndPrice(String brand, BigDecimal price) {
+    public List<Article> getProductsByBrandAndPrice(String brand, BigDecimal price) {
         try {
             return repository.getByBrandAndPrice(brand, price);
         } catch (Exception e) {
@@ -139,7 +139,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByBrandAndFreeShipping(String brand, Boolean freeShipping) {
+    public List<Article> getProductsByBrandAndFreeShipping(String brand, Boolean freeShipping) {
         try {
             return repository.getByBrandAndFreeShipping(brand, freeShipping);
         } catch (Exception e) {
@@ -149,7 +149,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByBrandAndPrestige(String brand, String prestige) {
+    public List<Article> getProductsByBrandAndPrestige(String brand, String prestige) {
         try {
             return repository.getByBrandAndPrestige(brand, prestige);
         } catch (Exception e) {
@@ -159,7 +159,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByPriceAndFreeShipping(BigDecimal price, Boolean freeShipping) {
+    public List<Article> getProductsByPriceAndFreeShipping(BigDecimal price, Boolean freeShipping) {
         try {
             return repository.getByPriceAndFreeShipping(price, freeShipping);
         } catch (Exception e) {
@@ -169,7 +169,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByPriceAndPrestige(BigDecimal price, String prestige) {
+    public List<Article> getProductsByPriceAndPrestige(BigDecimal price, String prestige) {
         try {
             return repository.getByPriceAndPrestige(price, prestige);
         } catch (Exception e) {
@@ -179,7 +179,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getProductsByFreeShippingAndPrestige(Boolean freeShipping, String prestige) {
+    public List<Article> getProductsByFreeShippingAndPrestige(Boolean freeShipping, String prestige) {
         try {
             return repository.getByFreeShippingAndPrestige(freeShipping, prestige);
         } catch (Exception e) {
@@ -189,7 +189,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> getByCategory(String category) {
+    public List<Article> getByCategory(String category) {
         try {
             return repository.getByCategory(category);
         } catch (Exception e) {
