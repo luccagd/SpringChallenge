@@ -22,14 +22,11 @@ public class CompraController {
         return "pong";
     }
 
-    // Provisorio
     @GetMapping("/purchase-request/get/all")
     public List<ArticlePurchaseResponse> getAll() {
         return ArticlePurchaseResponse.listEntityToResponse(compraService.getAll());
     }
 
-    // Provisorio
-    // Controller Advice : NullPointerException
     @GetMapping("/purchase-request/get/{id}")
     public ResponseEntity<ArticlePurchaseResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(ArticlePurchaseResponse.toResponse(compraService.getById(id)));

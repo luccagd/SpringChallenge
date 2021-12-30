@@ -18,154 +18,150 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ProdutoRepository {
     private ObjectMapper objectMapper = DatabaseHelper.getObjectMapper();
     private String PATH = DatabaseHelper.getDatabasePath();
-    private List<Produto> produtos = new ArrayList<>(DatabaseHelper.getDatabase());
+    private List<Produto> products = new ArrayList<>(DatabaseHelper.getDatabase());
 
+    public List<Produto> insertAllArticles(List<Produto> products) {
+        for (Produto product : products) {
+            product.setProductId((long) this.products.size() + 1);
 
-    public List<Produto> getAll() {
-        return new ArrayList<>(produtos);
-    }
-
-    public Produto getById(Long productId) {
-        //COLOCAR EXCEPTION AQUI PARA O CASO DE NÃO HAVER ID
-        Produto produto = produtos.stream().filter(x ->
-                x.getProductId().equals(productId))
-                .findFirst().orElse(new Produto());
-        produto.setPrice(new BigDecimal(String.valueOf(produto.getPrice())).setScale(2, RoundingMode.HALF_EVEN));
-        return produto;
-    }
-
-    public List<Produto> insertAllArticles(List<Produto> produtos) {
-        for (Produto produto : produtos) {
-            produto.setProductId((long) this.produtos.size() + 1);
-            this.produtos.add(produto);
+            this.products.add(product);
         }
 
         updateFile();
-        return produtos;
+
+        return products;
     }
 
     private void updateFile() {
         try {
-            objectMapper.writeValue(new File(PATH), this.produtos);
+            objectMapper.writeValue(new File(PATH), this.products);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public List<Produto> getProductsByCategoryAndFreeShippingAndOrder(String categoria, Boolean freeShipping, int order)
-            throws IOException {
-        return new ArrayList<>(produtos);
-
+    public List<Produto> getAll() {
+        return this.products;
     }
 
-    public List<Produto> getProductsByNameAndCategory(String name, String category) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getName().equalsIgnoreCase(name))
-                .filter(produto -> produto.getCategory().equalsIgnoreCase(category))
+    public Produto getById(Long productId) {
+        Produto product = this.products.stream()
+                .filter(p -> p.getProductId().equals(productId))
+                .findFirst()
+                .orElse(new Produto());
+
+        product.setPrice(new BigDecimal(String.valueOf(product.getPrice())).setScale(2, RoundingMode.HALF_EVEN));
+
+        return product;
+    }
+
+    public List<Produto> getByCategory(String category) {
+        return this.products.stream()
+                .filter(product -> product.getCategory().equals(category))
                 .collect(Collectors.toList());
     }
 
-    public List<Produto> getProductsByNameAndBrand(String name, String brand) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getName().equalsIgnoreCase(name))
-                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand))
+    public List<Produto> getByNameAndCategory(String name, String category) {
+        return this.products.stream()
+                .filter(product -> product.getName().equalsIgnoreCase(name))
+                .filter(product -> product.getCategory().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
     }
 
-    public List<Produto> getProductsByNameAndPrice(String name, BigDecimal price) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getName().equalsIgnoreCase(name))
-                .filter(produto -> produto.getPrice().equals(price))
+    public List<Produto> getByNameAndBrand(String name, String brand) {
+        return this.products.stream()
+                .filter(product -> product.getName().equalsIgnoreCase(name))
+                .filter(product -> product.getBrand().equalsIgnoreCase(brand))
                 .collect(Collectors.toList());
     }
 
-    public List<Produto> getProductsByNameAndFreeShipping(String name, Boolean freeShipping) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getName().equalsIgnoreCase(name))
-                .filter(produto -> produto.getFreeShipping().equals(freeShipping))
+    public List<Produto> getByNameAndPrice(String name, BigDecimal price) {
+        return this.products.stream()
+                .filter(product -> product.getName().equalsIgnoreCase(name))
+                .filter(product -> product.getPrice().equals(price))
                 .collect(Collectors.toList());
     }
 
-    public List<Produto> getProductsByNameAndPrestige(String name, String prestige) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getName().equalsIgnoreCase(name))
-                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige))
+    public List<Produto> getByNameAndFreeShipping(String name, Boolean freeShipping) {
+        return this.products.stream()
+                .filter(product -> product.getName().equalsIgnoreCase(name))
+                .filter(product -> product.getFreeShipping().equals(freeShipping))
                 .collect(Collectors.toList());
     }
 
-
-    public List<Produto> getProductsByCategoryAndBrand(String category, String brand) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getCategory().equalsIgnoreCase(category))
-                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand))
-                .collect(Collectors.toList());
-
-	}
-    public List<Produto> getByCategory(String category)
-    {
-        return produtos.stream().filter(produto->produto.getCategory().equals(category)).collect(Collectors.toList());
-
-    }
-
-    public List<Produto> getProductsByCategoryAndPrice(String category, BigDecimal price) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getCategory().equalsIgnoreCase(category))
-                .filter(produto -> produto.getPrice().equals(price))
+    public List<Produto> getByNameAndPrestige(String name, String prestige) {
+        return this.products.stream()
+                .filter(product -> product.getName().equalsIgnoreCase(name))
+                .filter(product -> product.getPrestige().equalsIgnoreCase(prestige))
                 .collect(Collectors.toList());
     }
 
-    public List<Produto> getProductsByCategoryAndFreeShipping(String category, Boolean freeShipping) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getCategory().equalsIgnoreCase(category))
-                .filter(produto -> produto.getFreeShipping().equals(freeShipping))
+    public List<Produto> getByCategoryAndBrand(String category, String brand) {
+        return this.products.stream()
+                .filter(product -> product.getCategory().equalsIgnoreCase(category))
+                .filter(product -> product.getBrand().equalsIgnoreCase(brand))
                 .collect(Collectors.toList());
     }
 
-    public List<Produto> getProductsByCategoryAndPrestige(String category, String prestige) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getCategory().equalsIgnoreCase(category))
-                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige))
+    public List<Produto> getByCategoryAndPrice(String category, BigDecimal price) {
+        return this.products.stream()
+                .filter(product -> product.getCategory().equalsIgnoreCase(category))
+                .filter(product -> product.getPrice().equals(price))
                 .collect(Collectors.toList());
     }
 
-    public List<Produto> getProductsByBrandAndPrice(String brand, BigDecimal price) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand))
-                .filter(produto -> produto.getPrice().equals(price))
+    public List<Produto> getByCategoryAndFreeShipping(String category, Boolean freeShipping) {
+        return this.products.stream()
+                .filter(product -> product.getCategory().equalsIgnoreCase(category))
+                .filter(product -> product.getFreeShipping().equals(freeShipping))
                 .collect(Collectors.toList());
     }
 
-    public List<Produto> getProductsByBrandAndFreeShipping(String brand, Boolean freeShipping) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand))
-                .filter(produto -> produto.getFreeShipping().equals(freeShipping))
+    public List<Produto> getByCategoryAndPrestige(String category, String prestige) {
+        return this.products.stream()
+                .filter(product -> product.getCategory().equalsIgnoreCase(category))
+                .filter(product -> product.getPrestige().equalsIgnoreCase(prestige))
                 .collect(Collectors.toList());
     }
 
-    public List<Produto> getProductsByBrandAndPrestige(String brand, String prestige) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getBrand().equalsIgnoreCase(brand))
-                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige))
+    public List<Produto> getByBrandAndPrice(String brand, BigDecimal price) {
+        return this.products.stream()
+                .filter(product -> product.getBrand().equalsIgnoreCase(brand))
+                .filter(product -> product.getPrice().equals(price))
                 .collect(Collectors.toList());
     }
 
-    public List<Produto> getProductsByPriceAndFreeShipping(BigDecimal price, Boolean freeShipping) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getPrice().equals(price))
-                .filter(produto -> produto.getFreeShipping().equals(freeShipping))
+    public List<Produto> getByBrandAndFreeShipping(String brand, Boolean freeShipping) {
+        return this.products.stream()
+                .filter(product -> product.getBrand().equalsIgnoreCase(brand))
+                .filter(product -> product.getFreeShipping().equals(freeShipping))
                 .collect(Collectors.toList());
     }
 
-    public List<Produto> getProductsByPriceAndPrestige(BigDecimal price, String prestige) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getPrice().equals(price))
-                .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige))
+    public List<Produto> getByBrandAndPrestige(String brand, String prestige) {
+        return this.products.stream()
+                .filter(product -> product.getBrand().equalsIgnoreCase(brand))
+                .filter(product -> product.getPrestige().equalsIgnoreCase(prestige))
                 .collect(Collectors.toList());
     }
 
-    public List<Produto> getProductsByFreeShippingAndPrestige(Boolean freeShipping, String prestige) {
-        return this.produtos.stream()
-                .filter(produto -> produto.getFreeShipping().equals(freeShipping))
+    public List<Produto> getByPriceAndFreeShipping(BigDecimal price, Boolean freeShipping) {
+        return this.products.stream()
+                .filter(product -> product.getPrice().equals(price))
+                .filter(product -> product.getFreeShipping().equals(freeShipping))
+                .collect(Collectors.toList());
+    }
+
+    public List<Produto> getByPriceAndPrestige(BigDecimal price, String prestige) {
+        return this.products.stream()
+                .filter(product -> product.getPrice().equals(price))
+                .filter(product -> product.getPrestige().equalsIgnoreCase(prestige))
+                .collect(Collectors.toList());
+    }
+
+    public List<Produto> getByFreeShippingAndPrestige(Boolean freeShipping, String prestige) {
+        return this.products.stream()
+                .filter(product -> product.getFreeShipping().equals(freeShipping))
                 .filter(produto -> produto.getPrestige().equalsIgnoreCase(prestige))
                 .collect(Collectors.toList());
     }

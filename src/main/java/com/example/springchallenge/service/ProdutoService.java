@@ -6,9 +6,11 @@ import java.math.BigDecimal;
 import java.util.Comparator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.example.springchallenge.entity.Produto;
+import com.example.springchallenge.exception.AppErrorException;
 import com.example.springchallenge.repository.ProdutoRepository;
 
 @Service
@@ -18,88 +20,183 @@ public class ProdutoService {
     private ProdutoRepository repository;
 
     public List<Produto> getProductsByNameAndCategory(String name, String category) {
-        return repository.getProductsByNameAndCategory(name, category);
+        try {
+            return repository.getByNameAndCategory(name, category);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por name e category!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByNameAndBrand(String name, String brand) {
-        return repository.getProductsByNameAndBrand(name, brand);
+        try {
+            return repository.getByNameAndBrand(name, brand);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por name e brand!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByNameAndPrice(String name, BigDecimal price) {
-        return repository.getProductsByNameAndPrice(name, price);
+        try {
+            return repository.getByNameAndPrice(name, price);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por name e price!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByNameAndFreeShipping(String name, Boolean freeShipping) {
-        return repository.getProductsByNameAndFreeShipping(name, freeShipping);
+        try {
+            return repository.getByNameAndFreeShipping(name, freeShipping);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por name e freeShipping!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByNameAndPrestige(String name, String prestige) {
-        return repository.getProductsByNameAndPrestige(name, prestige);
+        try {
+            return repository.getByNameAndPrestige(name, prestige);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por name e prestige!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByCategoryAndBrand(String category, String brand) {
-        return repository.getProductsByCategoryAndBrand(category, brand);
+        try {
+            return repository.getByCategoryAndBrand(category, brand);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por category e brand!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByCategoryAndPrice(String category, BigDecimal price) {
-        return repository.getProductsByCategoryAndPrice(category, price);
+        try {
+            return repository.getByCategoryAndPrice(category, price);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por category e price!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByCategoryAndFreeShipping(String category, Boolean freeShipping, Integer order) {
-        Comparator<Produto> compareByName = Comparator.comparing(Produto::getName);
+        try {
+            Comparator<Produto> compareByName = Comparator.comparing(Produto::getName);
 
-        List<Produto> produtos = repository.getProductsByCategoryAndFreeShipping(category, freeShipping);
+            List<Produto> produtos = repository.getByCategoryAndFreeShipping(category, freeShipping);
 
-        if (order == 0) {
-            produtos.sort(compareByName);
+            if (order == 0) {
+                produtos.sort(compareByName);
+            }
+
+            if (order == 1) {
+                produtos.sort(compareByName.reversed());
+            }
+
+            if (order == 2) {
+                Collections.sort(produtos, (Produto a, Produto b) -> b.compareByPrice(a));
+            }
+
+            if (order == 3) {
+                Collections.sort(produtos, (Produto a, Produto b) -> a.compareByPrice(b));
+            }
+
+            return produtos;
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por category e freeShipping!",
+                    e.getMessage());
         }
-
-        if (order == 1) {
-            produtos.sort(compareByName.reversed());
-        }
-
-        if (order == 2) {
-            Collections.sort(produtos, (Produto a, Produto b) -> b.compareByPrice(a));
-        }
-        
-        if (order == 3) {
-            Collections.sort(produtos, (Produto a, Produto b) -> a.compareByPrice(b));
-        }
-
-        return produtos;
     }
 
     public List<Produto> getProductsByCategoryAndPrestige(String category, String prestige) {
-        return repository.getProductsByCategoryAndPrestige(category, prestige);
+        try {
+            return repository.getByCategoryAndPrestige(category, prestige);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por category e prestige!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByBrandAndPrice(String brand, BigDecimal price) {
-        return repository.getProductsByBrandAndPrice(brand, price);
+        try {
+            return repository.getByBrandAndPrice(brand, price);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por brand e price!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByBrandAndFreeShipping(String brand, Boolean freeShipping) {
-        return repository.getProductsByBrandAndFreeShipping(brand, freeShipping);
+        try {
+            return repository.getByBrandAndFreeShipping(brand, freeShipping);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por brand e freeShipping!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByBrandAndPrestige(String brand, String prestige) {
-        return repository.getProductsByBrandAndPrestige(brand, prestige);
+        try {
+            return repository.getByBrandAndPrestige(brand, prestige);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por brand e prestige!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByPriceAndFreeShipping(BigDecimal price, Boolean freeShipping) {
-        return repository.getProductsByPriceAndFreeShipping(price, freeShipping);
+        try {
+            return repository.getByPriceAndFreeShipping(price, freeShipping);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por price e freeShipping!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByPriceAndPrestige(BigDecimal price, String prestige) {
-        return repository.getProductsByPriceAndPrestige(price, prestige);
+        try {
+            return repository.getByPriceAndPrestige(price, prestige);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por price e prestige!",
+                    e.getMessage());
+        }
     }
 
     public List<Produto> getProductsByFreeShippingAndPrestige(Boolean freeShipping, String prestige) {
-        return repository.getProductsByFreeShippingAndPrestige(freeShipping, prestige);
+        try {
+            return repository.getByFreeShippingAndPrestige(freeShipping, prestige);
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por reeShipping e prestige!",
+                    e.getMessage());
+        }
     }
 
-	public List<Produto> listaPorCategoria(String categoria)
-	{
-		return repository.getByCategory(categoria);
-	}
+    public List<Produto> listaPorCategoria(String category) {
+        try {
+            return repository.getByCategory(category);
 
+        } catch (Exception e) {
+            throw new AppErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Não foi possível listar os produtos por category!",
+                    e.getMessage());
+        }
+    }
 }

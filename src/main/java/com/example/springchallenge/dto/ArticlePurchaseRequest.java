@@ -2,7 +2,6 @@ package com.example.springchallenge.dto;
 
 import com.example.springchallenge.entity.Compra;
 import com.example.springchallenge.entity.Produto;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,17 +29,17 @@ public class ArticlePurchaseRequest {
 
     public static ArticlePurchaseRequest toRequest(Compra compra) {
         ArticlePurchaseRequest request = ArticlePurchaseRequest.builder()
-                                                               .id(compra.getId())
-                                                               .articles(compra.getArticles())
-                                                               .build();
+                .id(compra.getId())
+                .articles(compra.getArticles())
+                .build();
         return request;
     }
 
     public static ArticlePurchaseRequest toRequest(ArticlePurchaseResponse response) {
         ArticlePurchaseRequest request = ArticlePurchaseRequest.builder()
-                                                               .id(response.getId())
-                                                               .articles(response.getTicket().getArticles())
-                                                               .build();
+                .id(response.getId())
+                .articles(response.getTicket().getArticles())
+                .build();
         return request;
     }
 
