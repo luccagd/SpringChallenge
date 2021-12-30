@@ -38,7 +38,7 @@ public class ProdutoController {
     }
     @GetMapping(value = "/articles",params = {"category"})
     public ResponseEntity<List<ProdutoInsertDTO>> getByCategory(@RequestParam String category) {
-        return ResponseEntity.ok().body(ProdutoInsertDTO.entityListToDTO(service.listaPorCategoria(category)));
+        return ResponseEntity.ok().body(ProdutoInsertDTO.entityListToDTO(service.getByCategory(category)));
     }
 
     @GetMapping(path = "/articles", params = { "name", "brand" })

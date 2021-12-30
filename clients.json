@@ -1,79 +1,73 @@
-[
-    {
-        "clientId": "1",
-        "name": "Lemuel",
-        "email": "lemuel@gmail.com",
-        "cpf": "12345678999",
-        "estado": "Acre"
-    },
-    {
-        "clientId": "2",
-        "name": "Lucca",
-        "email": "lucca@gmail.com",
-        "cpf": "12345678999",
-        "estado": "Amazonas"
-    },
-    {
-        "clientId": "3",
-        "name": "Everton",
-        "email": "everton@gmail.com",
-        "cpf": "12345678999",
-        "estado": "Alagoas"
-    },
-    {
-        "clientId": "4",
-        "name": "Henrique",
-        "email": "henrique@gmail.com",
-        "cpf": "12345678999",
-        "estado": "Bahia"
-    },
-    {
-        "clientId": "5",
-        "name": "Vinicius",
-        "email": "vinicius@gmail.com",
-        "cpf": "12345678999",
-        "estado": "São Paulo"
-    },
-    {
-        "clientId": "6",
-        "name": "Maria",
-        "email": "maria@gmail.com",
-        "cpf": "12345678999",
-        "estado": "Mato Grosso do Sul"
-    },
-    {
-        "clientId": "7",
-        "name": "Beatriz",
-        "email": "beatriz@gmail.com",
-        "cpf": "12345678999",
-        "estado": "Santa Catarina"
-    },
-    {
-        "clientId": "8",
-        "name": "Joana",
-        "email": "joana@gmail.com",
-        "cpf": "12345678999",
-        "estado": "São Paulo"
-    },
-    {
-        "clientId": "8",
-        "name": "Lara",
-        "email": "lara@gmail.com",
-        "cpf": "12345678999",
-        "estado": "Bahia"
-    },
-    {
-        "clientId": "9",
-        "name": "Diego",
-        "email": "diego@gmail.com",
-        "cpf": "12345678999",
-        "estado": "Acre"
-    },
-    {
-        "clientId": "10",
-        "name": "João",
-        "email": "joao@gmail.com",
-        "cpf": "12345678999",
-        "estado": "Alagoas"
-    }
-]
+[ {
+  "clientId" : 1,
+  "name" : "Lemuel",
+  "cpf" : "12345678999",
+  "state" : "Acre",
+  "email" : "lemuel@gmail.com"
+}, {
+  "clientId" : 2,
+  "name" : "Lucca",
+  "cpf" : "12345678999",
+  "state" : "Amazonas",
+  "email" : "lucca@gmail.com"
+}, {
+  "clientId" : 3,
+  "name" : "Everton",
+  "cpf" : "12345678999",
+  "state" : "Alagoas",
+  "email" : "everton@gmail.com"
+}, {
+  "clientId" : 4,
+  "name" : "Henrique",
+  "cpf" : "12345678999",
+  "state" : "Bahia",
+  "email" : "henrique@gmail.com"
+}, {
+  "clientId" : 5,
+  "name" : "Vinicius",
+  "cpf" : "12345678999",
+  "state" : "São Paulo",
+  "email" : "vinicius@gmail.com"
+}, {
+  "clientId" : 6,
+  "name" : "Maria",
+  "cpf" : "12345678999",
+  "state" : "Mato Grosso do Sul",
+  "email" : "maria@gmail.com"
+}, {
+  "clientId" : 7,
+  "name" : "Beatriz",
+  "cpf" : "12345678999",
+  "state" : "Santa Catarina",
+  "email" : "beatriz@gmail.com"
+}, {
+  "clientId" : 8,
+  "name" : "Joana",
+  "cpf" : "12345678999",
+  "state" : "São Paulo",
+  "email" : "joana@gmail.com"
+}, {
+  "clientId" : 9,
+  "name" : "Lara",
+  "cpf" : "12345678999",
+  "state" : "Bahia",
+  "email" : "lara@gmail.com"
+}, {
+  "clientId" : 10,
+  "name" : "Diego",
+  "cpf" : "12345678999",
+  "state" : "Acre",
+  "email" : "diego@gmail.com"
+}, {
+  "clientId" : 11,
+  "name" : "João",
+  "cpf" : "12345678999",
+  "state" : "Alagoas",
+  "email" : "joao@gmail.com"
+}, {
+  "clientId" : 12,
+  "name" : "Teste",
+  "cpf" : "12345678999",
+  "state" : "teste",
+  "email" : "teste@gmail.com"
+} ]

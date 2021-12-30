@@ -97,9 +97,9 @@ public class ProdutoService {
         return repository.getProductsByFreeShippingAndPrestige(freeShipping, prestige);
     }
 
-	public List<Produto> listaPorCategoria(String categoria)
+	public List<Produto> getByCategory(String category)
 	{
-		return repository.getByCategory(categoria);
+		return repository.getByCategory(category);
 	}
 
 }
