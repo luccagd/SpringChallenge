@@ -32,7 +32,7 @@ public class ProdutoRepository {
         return products;
     }
 
-    private void updateFile() {
+    public void updateFile() {
         try {
             objectMapper.writeValue(new File(PATH), this.products);
         } catch (IOException e) {

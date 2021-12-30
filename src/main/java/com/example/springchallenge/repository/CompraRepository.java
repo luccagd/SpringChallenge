@@ -33,11 +33,28 @@ public class CompraRepository {
     public List<Produto> updateProduct(Compra compra){
         List<Produto> novosProdutos = new ArrayList<>();
         compra.getArticles().forEach( produto -> {
-            Produto novoProduto = produtoRepository.getById(produto.getProductId());
-            novoProduto.setQuantity(produto.getQuantity());
+            Produto produtoNoEstoque = produtoRepository.getById(produto.getProductId());
+            if (produtoNoEstoque.getQuantity() < produto.getQuantity()) {
+                throw new RuntimeException("Possuimos apenas " + produtoNoEstoque.getQuantity() + " unidade(s) do produto " + produtoNoEstoque.getName() + " em nossos estoques!");
+            }
+
+            produtoNoEstoque.setQuantity(produtoNoEstoque.getQuantity() - produto.getQuantity());
+
+            Produto novoProduto = Produto.builder()
+                    .productId(produtoNoEstoque.getProductId())
+                    .name(produtoNoEstoque.getName())
+                    .category(produtoNoEstoque.getCategory())
+                    .brand(produtoNoEstoque.getBrand())
+                    .price(produtoNoEstoque.getPrice())
+                    .quantity(produto.getQuantity())
+                    .freeShipping(produtoNoEstoque.getFreeShipping())
+                    .prestige(produtoNoEstoque.getPrestige())
+                    .build();
+
             novosProdutos.add(novoProduto);
         });
 
+        produtoRepository.updateFile();
         return novosProdutos;
     }
 }
