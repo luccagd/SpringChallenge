@@ -22,6 +22,8 @@ public class ArticlePurchaseResponse {
     private Long id;
     private ArticlePurchaseRequest ticket;
     private BigDecimal total;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long idCart;
 
     public static BigDecimal sum(ArticlePurchaseRequest request){
         Compra compra = toEntity(request);
@@ -39,16 +41,18 @@ public class ArticlePurchaseResponse {
 
     public static ArticlePurchaseResponse toResponse(ArticlePurchaseRequest articlePurchaseRequest) {
         ArticlePurchaseResponse response = ArticlePurchaseResponse.builder()
-                .id(articlePurchaseRequest.getId())
-                .ticket(articlePurchaseRequest)
-                .total(sum(articlePurchaseRequest))
-                .build();
+                                                                  .id(articlePurchaseRequest.getId())
+                                                                  .idCart(articlePurchaseRequest.getIdCart())
+                                                                  .ticket(articlePurchaseRequest)
+                                                                  .total(sum(articlePurchaseRequest))
+                                                                  .build();
         return response;
     }
 
     public static ArticlePurchaseResponse toResponse(Compra compra) {
         ArticlePurchaseResponse response = ArticlePurchaseResponse.builder()
                                                                   .id(compra.getId())
+                                                                  .idCart(compra.getIdCart())
                                                                   .ticket(ArticlePurchaseRequest.toRequest(compra))
                                                                   .total(sum(compra))
                                                                   .build();
@@ -57,17 +61,19 @@ public class ArticlePurchaseResponse {
 
     public static Compra toEntity(ArticlePurchaseResponse articlePurchaseResponse) {
         Compra compra = Compra.builder()
-                .id(articlePurchaseResponse.ticket.getId())
-                .articles(articlePurchaseResponse.ticket.getArticles())
-                .build();
+                              .id(articlePurchaseResponse.ticket.getId())
+                              .idCart(articlePurchaseResponse.ticket.getIdCart())
+                              .articles(articlePurchaseResponse.ticket.getArticles())
+                              .build();
         return compra;
     }
 
     public static Compra toEntity(ArticlePurchaseRequest articlePurchaseRequest){
         Compra compra = Compra.builder()
-                .id(articlePurchaseRequest.getId())
-                .articles(articlePurchaseRequest.getArticles())
-                .build();
+                              .id(articlePurchaseRequest.getId())
+                              .idCart(articlePurchaseRequest.getIdCart())
+                              .articles(articlePurchaseRequest.getArticles())
+                              .build();
         return compra;
     }
 
@@ -77,5 +83,9 @@ public class ArticlePurchaseResponse {
 
     public static List<ArticlePurchaseResponse> listEntityToResponse(List<Compra> compras) {
         return compras.stream().map(ArticlePurchaseResponse::toResponse).collect(Collectors.toList());
+    }
+
+    public static List<Compra> listResponseToEntity(List<ArticlePurchaseResponse> response) {
+        return response.stream().map(ArticlePurchaseResponse::toEntity).collect(Collectors.toList());
     }
 }

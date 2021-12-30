@@ -14,6 +14,7 @@ import java.util.List;
 @Builder
 public class Compra {
     private Long id;
+    private Long idCart;
     private List<Produto> articles = new ArrayList<>();
 
     public void addArticles(Produto produto) {
