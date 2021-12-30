@@ -1,5 +1,6 @@
 package com.example.springchallenge.repository;
 
+import com.example.springchallenge.entity.Cart;
 import com.example.springchallenge.entity.Compra;
 import com.example.springchallenge.entity.Produto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +13,26 @@ import java.util.List;
 
 @Repository
 public class CompraRepository {
+
     List<Compra> compras = new ArrayList<>();
 
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    @Autowired
+    private CartRepository cartRepository;
+
     public Compra save(Compra compra) {
-        compra.setId((long) compras.size() + 1);
-        compra.setArticles(updateProduct(compra));
-        compras.add(compra);
-        return compra;
+            if(!cartRepository.getById(compra.getIdCart()).equals(new Cart())){
+                compra.setId((long) compras.size() + 1);
+                compra.setArticles(updateProduct(compra));
+                compras.add(compra);
+                Cart cart = cartRepository.getById(compra.getIdCart());
+                cart.addPurchase(compra);
+            return compra;
+        }else {
+            return null;
+        }
     }
 
     public List<Compra> getAll() {
@@ -35,11 +46,23 @@ public class CompraRepository {
     public List<Produto> updateProduct(Compra compra){
         List<Produto> novosProdutos = new ArrayList<>();
         compra.getArticles().forEach( produto -> {
-            Produto novoProduto = produtoRepository.getById(produto.getProductId());
-            novoProduto.setQuantity(produto.getQuantity());
+            Produto produtoNoEstoque = produtoRepository.getById(produto.getProductId());
+            produtoNoEstoque.setQuantity(produtoNoEstoque.getQuantity() - produto.getQuantity());
+
+            Produto novoProduto = Produto.builder()
+                    .productId(produtoNoEstoque.getProductId())
+                    .name(produtoNoEstoque.getName())
+                    .category(produtoNoEstoque.getCategory())
+                    .brand(produtoNoEstoque.getBrand())
+                    .price(produtoNoEstoque.getPrice())
+                    .quantity(produto.getQuantity())
+                    .freeShipping(produtoNoEstoque.getFreeShipping())
+                    .prestige(produtoNoEstoque.getPrestige())
+                    .build();
+
             novosProdutos.add(novoProduto);
         });
-
+        produtoRepository.updateFile();
         return novosProdutos;
     }
 }

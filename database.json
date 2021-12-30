@@ -3,8 +3,8 @@
   "name" : "Serra de Bancada",
   "category" : "Ferramentas",
   "brand" : "FORTGPRO",
-  "price" : 1800,
-  "quantity" : 5,
+  "price" : 1800.00,
+  "quantity" : -1,
   "freeShipping" : true,
   "prestige" : "****"
 }, {

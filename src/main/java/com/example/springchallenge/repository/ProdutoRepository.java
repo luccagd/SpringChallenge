@@ -44,7 +44,7 @@ public class ProdutoRepository {
         return produtos;
     }
 
-    private void updateFile() {
+    public void updateFile() {
         try {
             objectMapper.writeValue(new File(PATH), this.produtos);
         } catch (IOException e) {

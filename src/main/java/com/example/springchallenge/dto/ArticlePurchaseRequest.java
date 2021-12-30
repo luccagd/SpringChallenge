@@ -18,11 +18,14 @@ import java.util.stream.Collectors;
 @Builder
 public class ArticlePurchaseRequest {
     private Long id;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long idCart;
     private List<Produto> articles = new ArrayList<>();
 
     public static Compra toEntity(ArticlePurchaseRequest request) {
         Compra compra = Compra.builder()
                 .id(request.getId())
+                .idCart(request.getIdCart())
                 .articles(request.getArticles())
                 .build();
         return compra;
@@ -31,6 +34,7 @@ public class ArticlePurchaseRequest {
     public static ArticlePurchaseRequest toRequest(Compra compra) {
         ArticlePurchaseRequest request = ArticlePurchaseRequest.builder()
                                                                .id(compra.getId())
+                                                               .idCart(compra.getIdCart())
                                                                .articles(compra.getArticles())
                                                                .build();
         return request;
@@ -39,6 +43,7 @@ public class ArticlePurchaseRequest {
     public static ArticlePurchaseRequest toRequest(ArticlePurchaseResponse response) {
         ArticlePurchaseRequest request = ArticlePurchaseRequest.builder()
                                                                .id(response.getId())
+                                                               .idCart(response.getTicket().getIdCart())
                                                                .articles(response.getTicket().getArticles())
                                                                .build();
         return request;
