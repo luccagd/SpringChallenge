@@ -19,17 +19,17 @@ public class CartController {
     private CartService cartService;
 
     @GetMapping("/get/all")
-    public ResponseEntity<List<CartDTO>> getAll(){
+    public ResponseEntity<List<CartDTO>> getAll() {
         return ResponseEntity.ok(CartDTO.listEntityToDTO(cartService.getAll()));
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<CartDTO> getById(@PathVariable Long id){
+    public ResponseEntity<CartDTO> getById(@PathVariable Long id) {
         return ResponseEntity.ok(CartDTO.toDTO(cartService.getById(id)));
     }
 
     @PostMapping("/post")
-    public ResponseEntity<CartDTO> save(@RequestBody Cart cart, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<CartDTO> save(@RequestBody Cart cart, UriComponentsBuilder uriComponentsBuilder) {
         cartService.save(cart);
 
         URI uri = uriComponentsBuilder.path("/cart/{id}").buildAndExpand(cart.getIdCart()).toUri();
@@ -37,7 +37,7 @@ public class CartController {
     }
 
     @GetMapping("/ping")
-    public String pong(){
+    public String pong() {
         return "pong";
     }
 

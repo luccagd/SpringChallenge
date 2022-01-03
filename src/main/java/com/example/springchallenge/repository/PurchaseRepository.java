@@ -17,7 +17,7 @@ public class PurchaseRepository {
     List<Purchase> purchases = new ArrayList<>();
 
     @Autowired
-    private ProdutoRepository produtoRepository;
+    private ArticleRepository articleRepository;
 
     @Autowired
     private CartRepository cartRepository;
@@ -46,7 +46,7 @@ public class PurchaseRepository {
     public List<Article> updateProduct(Purchase purchase){
         List<Article> newArticles = new ArrayList<>();
         purchase.getArticles().forEach(produto -> {
-            Article articleInStock = produtoRepository.getById(produto.getProductId());
+            Article articleInStock = articleRepository.getById(produto.getProductId());
 
             if (articleInStock.getQuantity() < produto.getQuantity()) {
                 String mensagem = (articleInStock.getQuantity() == 0)
@@ -71,7 +71,7 @@ public class PurchaseRepository {
             newArticles.add(newArticle);
         });
 
-        produtoRepository.updateFile();
+        articleRepository.updateFile();
         return newArticles;
     }
 }

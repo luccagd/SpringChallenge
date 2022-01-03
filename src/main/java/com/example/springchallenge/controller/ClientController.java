@@ -19,25 +19,25 @@ import com.example.springchallenge.service.ClientService;
 @RequestMapping("/client")
 public class ClientController {
 
-	@Autowired
-	private ClientService service;
+    @Autowired
+    private ClientService service;
 
-	@GetMapping("/listAll")
-	public ResponseEntity<List<ClientDTO>> getAll() {
-		List<Client> clients = service.getAll();
+    @GetMapping("/listAll")
+    public ResponseEntity<List<ClientDTO>> getAll() {
+        List<Client> clients = service.getAll();
 
-		return ResponseEntity.ok().body(ClientDTO.convertToList(clients));
-	}
+        return ResponseEntity.ok().body(ClientDTO.convertToList(clients));
+    }
 
-	@GetMapping(value = "/list", params = { "state" })
-	public ResponseEntity<List<ClientDTO>> getByState(@RequestParam String state) {
-		return ResponseEntity.ok().body(ClientDTO.convertToList(service.getClientByState(state)));
-	}
+    @GetMapping(value = "/list", params = { "state" })
+    public ResponseEntity<List<ClientDTO>> getByState(@RequestParam String state) {
+        return ResponseEntity.ok().body(ClientDTO.convertToList(service.getClientByState(state)));
+    }
 
-	@PostMapping("/insert")
-	public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO clientDTO) {
-		Client client = service.save(ClientDTO.convertToEntity(clientDTO));
+    @PostMapping("/insert")
+    public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO clientDTO) {
+        Client client = service.save(ClientDTO.convertToEntity(clientDTO));
 
-		return ResponseEntity.ok().body(ClientDTO.convertToDTO(client));
-	}
+        return ResponseEntity.ok().body(ClientDTO.convertToDTO(client));
+    }
 }

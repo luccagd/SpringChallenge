@@ -1,8 +1,5 @@
 package com.example.springchallenge.error;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import com.example.springchallenge.exception.AppErrorException;
 
 import org.springframework.http.HttpStatus;

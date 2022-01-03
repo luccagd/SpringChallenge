@@ -29,7 +29,8 @@ public class PurchaseController {
     }
 
     @PostMapping
-    public ResponseEntity<ArticlePurchaseResponse> createPurchase(@RequestBody ArticlePurchaseRequest request, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<ArticlePurchaseResponse> createPurchase(@RequestBody ArticlePurchaseRequest request,
+            UriComponentsBuilder uriComponentsBuilder) {
         ArticlePurchaseResponse response = ArticlePurchaseResponse.toResponse(purchaseService.save(request));
 
         URI uri = uriComponentsBuilder.path("/purchase-request/get/{id}").buildAndExpand(response.getId()).toUri();
